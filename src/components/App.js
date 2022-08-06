@@ -5,15 +5,18 @@ const App = () => {
   const [intervalId, setIntervalId] = useState();
 
   const getLocalTime = () => {
-    if (intervalId) clearInterval(intervalId);
     const newIntervalId = setInterval(() => {
       setCurrentTime(new Date().toLocaleString());
     }, 1000);
     setIntervalId(newIntervalId);
   }
 
+
   useEffect(() => {
     getLocalTime();
+    return () => {
+      clearInterval(intervalId);
+    }
   }, [])
   return (
     <div id="main">
